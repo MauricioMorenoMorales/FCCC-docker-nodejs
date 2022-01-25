@@ -1,0 +1,9 @@
+Pueros -
+	En el docker file solamente pones el puerto que va a exponer, para acceder a él desde tu computadora
+	tienes que agregra el flag -p
+
+Actualizar codigo
+	para ello usas un tipo de volumen llamado bind mount
+	$ ... -v <pathtofolderlocalmachine>:<pathtofoldercontainer> ...
+	UNIX
+		$ ... -v $(pwd):<pathtofoldercontainer> ...
