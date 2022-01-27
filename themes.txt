@@ -1,9 +1,47 @@
-Pueros -
+Comandos linux
+	puedes usar printenv para ver las variables de entorno en linux
+
+Eliminar contenedor
+	$ docker rm <contenedor> -f
+
+Ver los volumenes
+	$ docker volume ls
+
+Puertos -
 	En el docker file solamente pones el puerto que va a exponer, para acceder a él desde tu computadora
-	tienes que agregra el flag -p
+	tienes que agregra el flag -p <maquina>:<contenedor>
+
+Variables de entorno
+	puedes agregar un valor por defecto en el docker file con el valor
+	ENV PORT <puerto>
+	y a través de la consola enviarlo con el flag
+	$ ... --env PORT=4444 ...
+	o para usar un archivo .env
+	$ ... --envfile ./.env ...
+
+Docker-compose
+	detener los contenedores y eliminar los volumenes
+	$ doco down -v
 
 Actualizar codigo
 	para ello usas un tipo de volumen llamado bind mount
 	$ ... -v <pathtofolderlocalmachine>:<pathtofoldercontainer> ...
 	UNIX
 		$ ... -v $(pwd):<pathtofoldercontainer> ...
+
+Bug, no abre la pagina al no tener node modules - nodemon not found
+	con el -v bind tu directorio actual sin node_modules remplaza el directorio del contenedor
+	por eso las dependencias no están disponibles
+	al eliminar node_modules en la pc se elimina también en el contenedor
+	$ -v /app/node_modules
+
+Bug, el contenedor crea archivos dentro de nuestra maquina
+	tienes que crear un $ -v readonly
+		$ ... -v $(pwd):<pathtofoldercontainer>:ro ...
+
+Bug cada vez que se crea una nueva imagen el volumen de node_modules se mantiene activo
+	DANGER $ docker volume prune
+	DANGER $ docker rm <container-name> -fv
+
+Bug docker-compose no crea nuevas imagenes tienes que decirle cuándo hagas cambios en el Dockerfile
+	$ doco up --build
