@@ -23,6 +23,13 @@ Docker-compose
 	detener los contenedores y eliminar los volumenes
 	$ doco down -v
 
+Correr multiples docker-compose files
+	para correr tienes que usar estos comandos, el primer contenedor heredará al segundo
+	$ docker-compose -f docker-compose.yaml -f docker-compose.<dev|prod>.yaml up -d
+	para detenerlos usar este comando
+	$ docker-compose -f docker-compose.yaml -f docker-compose.<dev|prod>.yaml down -v
+
+
 Actualizar codigo
 	para ello usas un tipo de volumen llamado bind mount
 	$ ... -v <pathtofolderlocalmachine>:<pathtofoldercontainer> ...
@@ -45,3 +52,21 @@ Bug cada vez que se crea una nueva imagen el volumen de node_modules se mantiene
 
 Bug docker-compose no crea nuevas imagenes tienes que decirle cuándo hagas cambios en el Dockerfile
 	$ doco up --build
+
+Bug nodemon y las dependencias de desarrollo se mantienen en la instancia de produccion
+	tienes que agregar un if statement de bash en el docker file de este estilo
+		ARG NODE_ENV
+		RUN if [ "$NODE_ENV" = "development"]; \
+			then npm install;\
+			else npm install --only=production;\
+			fi
+	ademas de que tambien tienes que agregar configuracion en los docker-compose files
+		node-app:
+		build:
+			context: .
+			args:
+				NODE_ENV: <development|production>
+
+problema empieza en minuto 1:35
+
+Guardar informacion de la base de datos
