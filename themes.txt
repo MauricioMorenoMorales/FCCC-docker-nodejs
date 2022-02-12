@@ -70,3 +70,27 @@ Bug nodemon y las dependencias de desarrollo se mantienen en la instancia de pro
 problema empieza en minuto 1:35
 
 Guardar informacion de la base de datos
+	Primero creas un volumen con nombre, después tienes que alzar el volume a un nivel superior que tenga el
+	scope de todo el archivo yaml por ejemplo
+[
+    volumes:
+      - mongo-db:/data/db
+
+volumes:
+  mongo-db:
+]
+
+Conectar dos bases de datos
+	para connectar la base de datos tienes que primero revisar la IP del contenedor de la base de datos
+	ya después la agregas el servidor backend
+	para revisar la ip tienes que buscar el objeto IPAddress después de ejecutar el comando
+	$ docker inspect <contenedor>
+	u
+	$ docker inspect <contenedor> | grep IPAddress
+	--> Error
+		La desventaja es que de este modo cuándo cierres los contenedores el IP probablemente valla a cambiar por lo tanto
+		tenemos que ousar el archivo docker compose para comunicar los contenedores
+		podemos agregar el nombre del servicio a el url de la coneccion por ejemplo
+		`mongoose
+			.connect('mongodb://sanjeev:mypassword@mongo:27017/?authSource=admin')`
+

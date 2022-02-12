@@ -1,4 +1,4 @@
-version: "3"
+version: '3'
 services:
   node-app:
     build:
@@ -10,4 +10,4 @@ services:
       - /app/node_modules
     environment:
       - NODE_ENV=development
-    command: npm run start
+    command: yarn start
