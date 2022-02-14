@@ -94,3 +94,12 @@ Conectar dos bases de datos
 		`mongoose
 			.connect('mongodb://sanjeev:mypassword@mongo:27017/?authSource=admin')`
 
+Puedes hacer uso de los process.env sin usar dotenv, simplemente agregalos en el docker-compose que vallas a usar
+esto se agrega en el subconjunto de environments dentro de el conenedor que estés creando
+	environment
+		- MONGO_USER=sanjeev
+
+Tienes que hacer un loop para que cuando tu app inicialize trate de conectarse a la base de datos varias veces
+
+Si quieres iniciar solamente un servicio y no sus dependencias dentro de un docker compose puedes usar este comando
+	$  docker-compose -f docker-compose.yaml -f docker-compose.dev.yaml up --no-deps
