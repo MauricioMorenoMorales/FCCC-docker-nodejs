@@ -1,0 +1,29 @@
+@host = http://localhost:3000/api/v1/posts
+@postId = 620d346141e7f204c867d406
+
+###
+GET {{host}}
+
+### create
+POST {{host}}
+Content-Type: application/json
+
+{
+	"title": "6",
+	"body": "6"
+}
+
+### GetOnePost
+GET {{host}}/{{postId}}
+
+###update post
+PATCH {{host}}/{{postId}}
+Content-Type: application/json
+
+{
+	"title": "my second post",
+	"body": "second post"
+}
+
+### DeletePost
+DELETE {{host}}/{{postId}}
